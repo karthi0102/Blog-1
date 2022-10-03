@@ -4,10 +4,18 @@ const app=express()
 const Product=require('./product')
 const cors = require('cors');
 
+
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+  }
+
+
 app.use(cors());
 const bodyParser=require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+
+
 
 
 const db='mongodb+srv://dharunya:ridh1217@cluster0.aoyobnx.mongodb.net/?retryWrites=true&w=majority'
@@ -56,8 +64,8 @@ app.post('/products/delete',async(req,res)=>{
        res.redirect('http://localhost:3000/products')
 
     })
-
-app.listen(3000,function(){
+const PORT = 5000 || process.env.PORT
+app.listen(PORT,function(){
    console.log("Server is running")
 }
 )
